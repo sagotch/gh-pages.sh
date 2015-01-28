@@ -1,12 +1,12 @@
 #! /usr/bin/env sh
-#
-# gh-pages.sh - Automated documentation update.
-#
+
+# ghpup - Github pages updated.
+# Automated documentation update.
+
 # Author: Julien Sagot
 # License: MIT
 # Version: 0.1.0
-# Homepage: http://github.com/sagotch/gh-pages.sh#README
-#
+# Homepage: http://github.com/sagotch/ghpup#README
 
 set -e
 
@@ -14,7 +14,7 @@ set -e
 _usage ()
 {
     echo ' Usage:'
-    echo '      docdir=d commitmsg="This message" gh_pages.sh'
+    echo '      docdir=d commitmsg="This message" ghpup'
     echo
     echo ' $docdir     Directory containing doc (gh-pages content).'
     echo '             Mandatory, no default.'
@@ -24,7 +24,7 @@ _usage ()
 }
 
 # Main wrapper.
-_gh_pages ()
+_ghpup ()
 {
     # Variable tests and settings.
     if [ -z "$docdir" ] ; then _usage ; exit -1 ; fi
@@ -65,4 +65,4 @@ _gh_pages ()
     rm -r "$tmp"
 }
 
-_gh_pages
+_ghpup
