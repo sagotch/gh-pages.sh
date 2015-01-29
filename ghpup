@@ -5,7 +5,7 @@
 
 # Author: Julien Sagot
 # License: MIT
-# Version: 0.1.0
+# Version: 0.2.0
 # Homepage: http://github.com/sagotch/ghpup#README
 
 set -e
@@ -38,7 +38,12 @@ _ghpup ()
     # Move documentation in temporary directory.
     mv "$docdir"/* "$tmp"
 
-    # checkout to gh-pages branch. Create it if needed.
+    # Stash uncommited changes. Include untracked.
+    pre_stash=$(git stash list | md5sum)
+    git stash -u -a
+    post_stash=$(git stash list | md5sum)
+
+    # Checkout gh-pages branch. Create it if needed.
     if git fetch "$upstream" "$branch" ; then
 	git checkout "$branch"
 	git pull --rebase "$upstream" "$branch"
@@ -60,6 +65,9 @@ _ghpup ()
     git commit -m "$commitmsg"
     git push "$upstream" "$branch"
     git checkout -
+
+    # If previously stashed changes, restore them
+    if [ "$pre_stash" != "$post_stash" ] ; then git stash pop ; fi
 
     # Remove temporary folder
     rm -r "$tmp"
