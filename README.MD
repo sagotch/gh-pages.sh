@@ -17,3 +17,11 @@ Assuming that a `doc` rule will generate your documentation in
 			docdir="$(DOCDIR)" \
 			upstream="origin" \
 			ghpup
+
+# Installation
+
+Give `ghpup` execution rights, and copy it somewhere in your path
+(e.g. `/usr/local/bin/`)
+
+    chmod u+x ./ghpup
+	mv ./ghpup /usr/local/bin/
